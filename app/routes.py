@@ -4,22 +4,21 @@ import controller
 
 routes_config = Blueprint('route-config', __name__, template_folder="templates")
 
-@routes_config.route('/token', methods=['GET']) # route to get a auth token
+
+@routes_config.route('/token', methods=['GET'])  # route to get a auth token
 def token():
     try:
-        data = request.get_json()
-        response = make_response(controller.register_user(data['username'], data['email'], data['password']), 200)
+        response = make_response(controller.get_token(), 200)
     except Exception as e:
         response = make_response({e}, 400)
     return response
 
 
-@routes_config.route('/getData', methods=['GET']) # route to get application data
+@routes_config.route('/getData', methods=['GET'])  # route to get application data
 @authentication.token_required
-def getData():
+def get_data():
     try:
-        data = request.get_json()
-        response = make_response(controller.getData(), 200)
+        response = make_response(controller.get_data(), 200)
     except Exception as e:
         response = make_response({e}, 400)
     return response
