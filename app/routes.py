@@ -8,13 +8,13 @@ routes_config = Blueprint('route-config', __name__, template_folder="templates")
 @routes_config.route('/token', methods=['GET'])  # route to get a auth token
 def token():
     try:
-        response = make_response(controller.get_token(), 200)
+        response = make_response(controller.get_user_token(), 200)
     except Exception as e:
         response = make_response({e}, 400)
     return response
 
 
-@routes_config.route('/getData', methods=['GET'])  # route to get application data
+@routes_config.route('/get_data', methods=['GET'])  # route to get application data
 @authentication.token_required
 def get_data():
     try:

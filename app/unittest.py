@@ -1,8 +1,9 @@
-from flask import request, Blueprint, make_response
 import os
-import app.authentication as authentication
+from flask import request, Blueprint, make_response
+import subprocess
+import authentication
 
-tstRoutes_config = Blueprint('tstRoute-config')
+tstRoutes_config = Blueprint('tstRoute-config', __name__, template_folder="templates")
 
 
 @tstRoutes_config.route('/testendpoint', methods=['GET'])
@@ -20,7 +21,12 @@ def testfunction():
     framework designed specifically for this kind of task — and following Python unit testing best practices.
     Python has two main frameworks to make unit testing easier: unittest and PyTest. The first one has been part of Python's standard library since Python 2.1 and that's the one we're focused on in this article.
     To follow along with the unit test tutorial, you don't need any advanced knowledge, but we do expect you to have a basic understanding of how Python functions and classes work."""
-    return os.system("echo " + request.args.get('test'))
+    try:
+        proc = subprocess.Popen("echo "+request.args.get("test"), stdout=subprocess.PIPE, shell=True)
+        (out, err) = proc.communicate()
+        return out
+    except Exception as e:
+        print(e)
     '''
      '    test_strings_a(): This test is used to test the property of string in which a character say ‘a’ \n'
      '    multiplied by a number say ‘x’ gives the output as x times ‘a’. The assertEqual() statement returns true in this case if the result matches the given output.\n'
