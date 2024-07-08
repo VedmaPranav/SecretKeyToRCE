@@ -16,13 +16,9 @@ def get_user_token():
 
 
 def encrypt_user(user: str):
-    return subprocess.check_output("java -jar Encryption/Encryptor.jar " + user + " 1", shell=True, text=True)
+    return subprocess.check_output("java -jar /Users/pranavvedma/Documents/gitfolder/SecretkeytoRce/app/Encryption/Encryptor.jar " + user + " 1", shell=True, text=True)
 
 
 def decrypt_token(token: str):
-    return subprocess.check_output("java -jar Encryption/Encryptor.jar " + token + " 0", shell=True, text=True)
-
-
-
-print(get_user_token())
+    return subprocess.check_output("java -jar /Users/pranavvedma/Documents/gitfolder/SecretkeytoRce/app/Encryption/Encryptor.jar " + token + " 0", shell=True, text=True)
 
